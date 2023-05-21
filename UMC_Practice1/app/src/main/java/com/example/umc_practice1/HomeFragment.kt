@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mainActivity = requireActivity() as? MainActivity
-        memos = (mainActivity?.getMemos() ?: arrayListOf()) as ArrayList<Memo>
+        memos = (mainActivity?.getMemos() ?: arrayListOf())
         initializeViews()
         initializeMemoActivityLauncher()
         initializeAdapter()

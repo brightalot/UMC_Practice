@@ -6,6 +6,15 @@ import com.example.umc_practice1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val memos: ArrayList<Memo> = arrayListOf()
+    fun addMemo(memoText: String) {
+        val memo = Memo(memoText)
+        memos.add(memo)
+    }
+
+    fun getMemos(): ArrayList<Memo> {
+        return memos
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

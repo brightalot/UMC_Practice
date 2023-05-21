@@ -16,7 +16,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var memoActivityLauncher: ActivityResultLauncher<Intent>
     private lateinit var adapter: MemoAdapter
-    private val memos: ArrayList<Memo> = arrayListOf()
+    private var memos: ArrayList<Memo> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +28,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val mainActivity = requireActivity() as? MainActivity
+        memos = (mainActivity?.getMemos() ?: arrayListOf()) as ArrayList<Memo>
         initializeViews()
         initializeMemoActivityLauncher()
         initializeAdapter()
@@ -69,5 +71,9 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), MemoActivity::class.java)
             memoActivityLauncher.launch(intent)
         }
+    }
+    private fun saveMemo() {
+        val memoText = binding.btnAddMemo.text.toString()
+        (activity as? MainActivity)?.addMemo(memoText)
     }
 }

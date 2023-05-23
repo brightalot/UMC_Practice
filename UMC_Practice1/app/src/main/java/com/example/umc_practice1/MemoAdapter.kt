@@ -31,8 +31,8 @@ class MemoAdapter(
         holder.binding.tvMemo.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, MemoActivity::class.java)
-                .putExtra("memo", memos[position].text)
-                .putExtra("position", position)
+                .putExtra("memo", memos[holder.adapterPosition].text)
+                .putExtra("position", holder.adapterPosition)
             memoActivityLauncher.launch(intent)
         }
     }

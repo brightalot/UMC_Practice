@@ -2,8 +2,10 @@ package com.example.umc_practice1
 
 import android.content.Intent
 import android.app.Activity
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import com.example.umc_practice1.databinding.ActivityMemoBinding
 
 class MemoActivity : AppCompatActivity() {
@@ -31,5 +33,26 @@ class MemoActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
+    }
+    private lateinit var memoData: String
+    override fun onPause() {
+        super.onPause()
+        memoData = binding.etAddMemo.text.toString()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+
+        var builder = AlertDialog.Builder(this)
+        builder.setTitle("Memo")
+            .setMessage("다시 작성하시겠습니까?")
+            .setPositiveButton("네", DialogInterface.OnClickListener {
+                    dialog, which -> binding.etAddMemo.text.clear()
+            })
+            .setNegativeButton("아니오", DialogInterface.OnClickListener {
+                    dialog, which ->  memoData= ""
+            })
+            .create()
+            .show()
     }
 }

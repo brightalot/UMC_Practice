@@ -1,10 +1,11 @@
-package com.example.umc_practice1
+package com.example.umc_practice1.scenario.memo
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView.*
+import com.example.umc_practice1.data.Memo
 import com.example.umc_practice1.databinding.ItemMemoBinding
 
 class MemoAdapter(

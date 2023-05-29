@@ -1,4 +1,4 @@
-package com.example.umc_practice1
+package com.example.umc_practice1.scenario.mypage
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

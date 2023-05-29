@@ -2,35 +2,39 @@ package com.example.umc_practice1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Switch
+import com.example.umc_practice1.data.Memo
+import com.example.umc_practice1.data.SettingValue
 import com.example.umc_practice1.databinding.ActivityMainBinding
+import com.example.umc_practice1.scenario.home.HomeFragment
+import com.example.umc_practice1.scenario.mypage.MypageFragment
+import com.example.umc_practice1.scenario.setting.SettingFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val memos: ArrayList<Memo> = arrayListOf()
     private val settings = listOf(
-        SettingSwitch("1번째 스위치", false),
-        SettingSwitch("2번째 스위치", false),
-        SettingSwitch("3번째 스위치", false),
-        SettingSwitch("4번째 스위치", false),
-        SettingSwitch("5번째 스위치", false),
-        SettingSwitch("6번째 스위치", false),
-        SettingSwitch("7번째 스위치", false),
-        SettingSwitch("8번째 스위치", false),
-        SettingSwitch("9번째 스위치", false),
-        SettingSwitch("10번째 스위치", false),
-        SettingSwitch("11번째 스위치", false),
-        SettingSwitch("12번째 스위치", false),
-        SettingSwitch("13번째 스위치", false),
-        SettingSwitch("14번째 스위치", false),
-        SettingSwitch("15번째 스위치", false),
-        SettingSwitch("16번째 스위치", false),
-        SettingSwitch("17번째 스위치", false),
-        SettingSwitch("18번째 스위치", false),
-        SettingSwitch("19번째 스위치", false),
-        SettingSwitch("20번째 스위치", false),
-        SettingSwitch("21번째 스위치", false),
-        SettingSwitch("22번째 스위치", false),
+        SettingValue("1번째 스위치", false),
+        SettingValue("2번째 스위치", false),
+        SettingValue("3번째 스위치", false),
+        SettingValue("4번째 스위치", false),
+        SettingValue("5번째 스위치", false),
+        SettingValue("6번째 스위치", false),
+        SettingValue("7번째 스위치", false),
+        SettingValue("8번째 스위치", false),
+        SettingValue("9번째 스위치", false),
+        SettingValue("10번째 스위치", false),
+        SettingValue("11번째 스위치", false),
+        SettingValue("12번째 스위치", false),
+        SettingValue("13번째 스위치", false),
+        SettingValue("14번째 스위치", false),
+        SettingValue("15번째 스위치", false),
+        SettingValue("16번째 스위치", false),
+        SettingValue("17번째 스위치", false),
+        SettingValue("18번째 스위치", false),
+        SettingValue("19번째 스위치", false),
+        SettingValue("20번째 스위치", false),
+        SettingValue("21번째 스위치", false),
+        SettingValue("22번째 스위치", false),
     )
 
     fun addMemo(memoText: String) {
@@ -42,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         return memos
     }
 
-    fun getSettings(): List<SettingSwitch> {
+    fun getSettings(): List<SettingValue> {
         return settings
     }
     override fun onCreate(savedInstanceState: Bundle?) {

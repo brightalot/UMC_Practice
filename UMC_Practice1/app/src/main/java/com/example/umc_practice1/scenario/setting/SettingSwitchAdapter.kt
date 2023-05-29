@@ -1,11 +1,12 @@
-package com.example.umc_practice1
+package com.example.umc_practice1.scenario.setting
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.umc_practice1.data.SettingValue
 import com.example.umc_practice1.databinding.ItemSettingBinding
 
-class SettingSwitchAdapter(private val switchlist: List<SettingSwitch>): RecyclerView.Adapter<SettingSwitchAdapter.SwitchViewHolder>() {
+class SettingSwitchAdapter(private val switchlist: List<SettingValue>): RecyclerView.Adapter<SettingSwitchAdapter.SwitchViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -32,8 +33,8 @@ class SettingSwitchAdapter(private val switchlist: List<SettingSwitch>): Recycle
 
     class SwitchViewHolder(val binding: ItemSettingBinding)
         :RecyclerView.ViewHolder(binding.root) {
-        fun bind(switch: SettingSwitch) {
-            binding.settingTitleText.text = switch.title
+        fun bind(switch: SettingValue) {
+            binding.settingTitleText.text = switch.value
             binding.switchSetting.isChecked = switch.completed
         }
     }

@@ -1,4 +1,4 @@
-package com.example.umc_practice1
+package com.example.umc_practice1.scenario.home
 
 import android.app.Activity
 import android.content.Intent
@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.umc_practice1.MainActivity
+import com.example.umc_practice1.scenario.memo.MemoActivity
+import com.example.umc_practice1.scenario.memo.MemoAdapter
+import com.example.umc_practice1.data.Memo
 import com.example.umc_practice1.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

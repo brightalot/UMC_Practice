@@ -1,4 +1,4 @@
-package com.example.umc_practice1
+package com.example.umc_practice1.scenario.memo
 
 import android.content.Intent
 import android.app.Activity
@@ -6,10 +6,15 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.example.umc_practice1.databinding.ActivityMemoBinding
+import androidx.activity.viewModels
 
 class MemoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemoBinding
+
+    private val viewModel : MemoViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoBinding.inflate(layoutInflater)

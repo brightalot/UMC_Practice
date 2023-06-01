@@ -1,24 +1,35 @@
 package com.example.umc_practice1.util
 
 import android.content.Context
+import android.content.SharedPreferences
+import com.example.umc_practice1.data.Memo
 
 object Pref {
-    private var _ctx : Context? = null
+    private lateinit var sharedPref: SharedPreferences
+    private const val sharedPrefKey: String = "test_repo"
 
-    const val sharedPrefKey : String = "test_repo"
-    const val memoKey : String = "memo_repo"
-
-    val sharedPref = _ctx?.getSharedPreferences(sharedPrefKey ,Context.MODE_PRIVATE)
-
-
-    fun getContext (ctx : Context) {
-        _ctx = ctx
+    fun getContext(context: Context) {
+        sharedPref = context.getSharedPreferences(sharedPrefKey, Context.MODE_PRIVATE)
     }
 
-    fun inputString(data : String) = with (sharedPref?.edit()) {
-        this?.putString(memoKey, data)
+    fun loadMemos(memos: ArrayList<Memo>) {
+        val memoId = sharedPref.getInt("memo_size", 0)
+        memos.clear()
+        for (i in 0 until memoId) {
+            val memoText = sharedPref.getString("memo_$i", null)
+            memoText?.let {
+                val memo = Memo(it)
+                memos.add(memo)
+            }
+        }
     }
 
-    fun getString(prefKey : String ) : String? =  sharedPref?.getString(memoKey, "{}")
-
+    fun saveMemos(memos: ArrayList<Memo>) {
+        val editor = sharedPref.edit()
+        editor.putInt("memo_size", memos.size)
+        for (i in memos.indices) {
+            editor.putString("memo_$i", memos[i].text)
+        }
+        editor.apply()
+    }
 }

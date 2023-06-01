@@ -9,18 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.umc_practice1.MainActivity
 import com.example.umc_practice1.scenario.memo.MemoActivity
 import com.example.umc_practice1.scenario.memo.MemoAdapter
-import com.example.umc_practice1.data.Memo
 import com.example.umc_practice1.databinding.FragmentHomeBinding
+import com.example.umc_practice1.scenario.memo.MemoViewModel
+import com.example.umc_practice1.util.Pref
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var memoActivityLauncher: ActivityResultLauncher<Intent>
     private lateinit var adapter: MemoAdapter
-    private var memos: ArrayList<Memo> = arrayListOf()
+    private lateinit var memoViewModel: MemoViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,12 +33,15 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mainActivity = requireActivity() as? MainActivity
-        memos = (mainActivity?.getMemos() ?: arrayListOf())
+
+        memoViewModel = ViewModelProvider(this).get(MemoViewModel::class.java)
+        Pref.getContext(requireContext())
+
         initializeViews()
         initializeMemoActivityLauncher()
         initializeAdapter()
         setupAddMemoButton()
+        Pref.loadMemos(memoViewModel.currentMemos)
     }
 
     private fun initializeViews() {
@@ -52,21 +56,15 @@ class HomeFragment : Fragment() {
                 val data: Intent? = result.data
                 val memoString = data?.getStringExtra("memo") ?: ""
                 val position = data?.getIntExtra("position", -1) ?: -1
-                if (position == -1) {
-                    val memo = Memo(memoString)
-                    memos.add(memo)
-                    adapter.notifyDataSetChanged()
-                } else {
-                    val modifiedMemo = Memo(memoString)
-                    memos[position] = modifiedMemo
-                    adapter.notifyItemChanged(position)
-                }
+                memoViewModel.addMemo(memoString, position)
+                adapter.notifyItemChanged(position)
+                Pref.saveMemos(memoViewModel.currentMemos)
             }
         }
     }
 
     private fun initializeAdapter() {
-        adapter = MemoAdapter(memos, memoActivityLauncher)
+        adapter = MemoAdapter(memoViewModel, memoActivityLauncher)
         binding.rvMemo.adapter = adapter
     }
 
@@ -75,9 +73,5 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), MemoActivity::class.java)
             memoActivityLauncher.launch(intent)
         }
-    }
-    private fun saveMemo() {
-        val memoText = binding.btnAddMemo.text.toString()
-        (activity as? MainActivity)?.addMemo(memoText)
     }
 }

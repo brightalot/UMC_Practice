@@ -11,7 +11,7 @@ import com.example.umc_practice1.scenario.setting.SettingFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val memos: ArrayList<Memo> = arrayListOf()
+//    private val memos: ArrayList<Memo> = arrayListOf()
     private val settings = listOf(
         SettingValue("1번째 스위치", false),
         SettingValue("2번째 스위치", false),
@@ -36,15 +36,6 @@ class MainActivity : AppCompatActivity() {
         SettingValue("21번째 스위치", false),
         SettingValue("22번째 스위치", false),
     )
-
-    fun addMemo(memoText: String) {
-        val memo = Memo(memoText)
-        memos.add(memo)
-    }
-
-    fun getMemos(): ArrayList<Memo> {
-        return memos
-    }
 
     fun getSettings(): List<SettingValue> {
         return settings

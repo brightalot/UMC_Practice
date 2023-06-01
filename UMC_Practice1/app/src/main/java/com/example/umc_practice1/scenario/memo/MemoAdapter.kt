@@ -7,9 +7,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView.*
 import com.example.umc_practice1.data.Memo
 import com.example.umc_practice1.databinding.ItemMemoBinding
+import com.example.umc_practice1.util.Pref
 
 class MemoAdapter(
-    private val memos: ArrayList<Memo>,
+    private val memoViewModel: MemoViewModel,
     private val memoActivityLauncher: ActivityResultLauncher<Intent>)
     : Adapter<MemoAdapter.MemoViewHolder>() {
 
@@ -24,22 +25,23 @@ class MemoAdapter(
     }
 
     override fun onBindViewHolder(holder: MemoViewHolder, position: Int) {
-        holder.bind(memos[position])
+        holder.bind(memoViewModel.currentMemos[position])
         holder.binding.btnDelete.setOnClickListener {
-            memos.removeAt(holder.adapterPosition)
+            memoViewModel.deleteMemo(holder.adapterPosition)
             notifyItemRemoved(holder.adapterPosition)
+            Pref.saveMemos(memoViewModel.currentMemos)
         }
         holder.binding.tvMemo.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, MemoActivity::class.java)
-                .putExtra("memo", memos[holder.adapterPosition].text)
+                .putExtra("memo", memoViewModel.currentMemos[holder.adapterPosition].text)
                 .putExtra("position", holder.adapterPosition)
             memoActivityLauncher.launch(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return memos.size
+        return memoViewModel.currentMemos.size
     }
 
     class MemoViewHolder(val binding: ItemMemoBinding)

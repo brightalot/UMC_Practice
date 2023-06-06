@@ -14,7 +14,7 @@ object Pref {
 
     fun loadMemos(memos: ArrayList<Memo>) {
         val memoId = sharedPref.getInt("memo_size", 0)
-        memos.clear()
+       memos.clear()
         for (i in 0 until memoId) {
             val memoText = sharedPref.getString("memo_$i", null)
             memoText?.let {
@@ -28,6 +28,9 @@ object Pref {
         val editor = sharedPref.edit()
         editor.putInt("memo_size", memos.size)
         for (i in memos.indices) {
+            //caz's comment
+            // 메모 별로 아이디를 설정 하는것 나쁘지 않네요! 하지만 , 추후에는 데이터 Class 도 저장이 가능하기 때문에 , Json Object 나 다른 형태도 저장해보시는 것도 실습해봅시다!
+            // 이 부분은 제가 드린 사전과제에서 구현해 보시는게 좋을것 같습니다
             editor.putString("memo_$i", memos[i].text)
         }
         editor.apply()
